@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import useToast from '../../hooks/useToast';
+import { API_BASE_URL_EXPORT } from '../../data/api';
 import '../../styles/FirmProfileModal.css';
 
 const FirmProfileModal = ({ isOpen, onClose, architectId, architectName, companyName }) => {
@@ -49,19 +50,19 @@ const FirmProfileModal = ({ isOpen, onClose, architectId, architectName, company
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
       const [firmResponse, ratingsResponse, projectsResponse, portfolioResponse] = await Promise.all([
-        fetch(`/api/architects/${architectId}/profile`, {
+        fetch(`${API_BASE_URL_EXPORT}/architects/${architectId}/profile`, {
           headers: { 'Authorization': `Bearer ${token}` },
           signal: controller.signal
         }),
-        fetch(`/api/architects/${architectId}/ratings`, {
+        fetch(`${API_BASE_URL_EXPORT}/architects/${architectId}/ratings`, {
           headers: { 'Authorization': `Bearer ${token}` },
           signal: controller.signal
         }),
-        fetch(`/api/architects/${architectId}/completed-projects`, {
+        fetch(`${API_BASE_URL_EXPORT}/architects/${architectId}/completed-projects`, {
           headers: { 'Authorization': `Bearer ${token}` },
           signal: controller.signal
         }),
-        fetch(`/api/portfolio/architect/${architectId}`, {
+        fetch(`${API_BASE_URL_EXPORT}/portfolio/architect/${architectId}`, {
           headers: { 'Authorization': `Bearer ${token}` },
           signal: controller.signal
         })

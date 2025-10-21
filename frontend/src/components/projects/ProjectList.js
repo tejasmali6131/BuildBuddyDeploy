@@ -3,6 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import CreateProject from './CreateProject';
 import ProjectDetails from './ProjectDetails';
 import { scrollToTop } from '../ScrollToTop';
+import { API_BASE_URL_EXPORT } from '../../data/api';
 import './Projects.css';
 
 const ProjectList = ({ initialFilters = {} }) => {
@@ -90,7 +91,7 @@ const ProjectList = ({ initialFilters = {} }) => {
         }
       });
 
-      const apiUrl = `/api/projects?${queryParams}`;
+      const apiUrl = `${API_BASE_URL_EXPORT}/projects?${queryParams}`;
       console.log('📡 Making API request to:', apiUrl);
       console.log('📋 Query params object:', Object.fromEntries(queryParams));
 

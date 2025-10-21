@@ -40,7 +40,7 @@ const ProjectDetails = ({ project, onBack, onProjectUpdated, initialShowBidForm 
     setLoading(true);
     
     try {
-      const response = await fetch(`/api/projects/${project.id}`, {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/projects/${project.id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -77,7 +77,7 @@ const ProjectDetails = ({ project, onBack, onProjectUpdated, initialShowBidForm 
     if (architectRatings[architectId]) return; // Already fetched
     
     try {
-      const response = await fetch(`/api/ratings/architect/${architectId}`, {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/ratings/architect/${architectId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -123,7 +123,7 @@ const ProjectDetails = ({ project, onBack, onProjectUpdated, initialShowBidForm 
     setProcessingBid(bidId);
     
     try {
-      const response = await fetch(`/api/bids/${bidId}/status`, {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/bids/${bidId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -291,7 +291,7 @@ const ProjectDetails = ({ project, onBack, onProjectUpdated, initialShowBidForm 
     }
 
     try {
-      const response = await fetch(`/api/projects/${project.id}/cancel`, {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/projects/${project.id}/cancel`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
