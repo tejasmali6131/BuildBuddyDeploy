@@ -18,6 +18,14 @@
       "dest": "/static/$1"
     },
     {
+      "src": "/models/(.*\\.glb)",
+      "headers": {
+        "content-type": "application/octet-stream",
+        "cache-control": "s-maxage=31536000,immutable"
+      },
+      "dest": "/models/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }

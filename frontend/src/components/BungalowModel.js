@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from 'react';
-import { Canvas, useFrame, useLoader } from '@react-three/fiber';
+import React, { useRef, useEffect, useState } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls, Environment } from '@react-three/drei';
 import * as THREE from 'three';
@@ -7,8 +7,27 @@ import * as THREE from 'three';
 // 3D Bungalow Model Component
 function BungalowMesh() {
   const meshRef = useRef();
-  // Temporarily disable GLTF loading to fix deployment issues
-  // const gltf = useLoader(GLTFLoader, '/models/old_suburban_bungalow.glb');
+  const [gltf, setGltf] = React.useState(null);
+  const [error, setError] = React.useState(null);
+
+  // Load GLTF with error handling
+  React.useEffect(() => {
+    const loader = new GLTFLoader();
+    loader.load(
+      '/models/old_suburban_bungalow.glb',
+      (loadedGltf) => {
+        console.log('GLTF loaded successfully:', loadedGltf);
+        setGltf(loadedGltf);
+      },
+      (progress) => {
+        console.log('Loading progress:', progress);
+      },
+      (error) => {
+        console.error('Error loading GLTF:', error);
+        setError(error);
+      }
+    );
+  }, []);
 
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -16,18 +35,41 @@ function BungalowMesh() {
     }
   });
 
+  // Show loading fallback while GLTF loads
+  if (error) {
+    console.log('GLTF loading failed, showing fallback');
+    return (
+      <group ref={meshRef} position={[0, 0, 0]} scale={[1, 1, 1]}>
+        <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[2, 1.5, 2]} />
+          <meshStandardMaterial color="#8B4513" />
+        </mesh>
+        <mesh position={[0, 1.2, 0]} rotation={[0, Math.PI / 4, 0]}>
+          <coneGeometry args={[1.5, 0.8, 4]} />
+          <meshStandardMaterial color="#654321" />
+        </mesh>
+      </group>
+    );
+  }
+
+  if (!gltf) {
+    return (
+      <group ref={meshRef}>
+        <mesh>
+          <boxGeometry args={[0.5, 0.5, 0.5]} />
+          <meshStandardMaterial color="#6366f1" />
+        </mesh>
+      </group>
+    );
+  }
+
   return (
-    // Temporary simple house shape while GLTF loading is disabled
-    <group ref={meshRef} position={[0, 0, 0]} scale={[1, 1, 1]}>
-      <mesh position={[0, 0, 0]}>
-        <boxGeometry args={[2, 1.5, 2]} />
-        <meshStandardMaterial color="#8B4513" />
-      </mesh>
-      <mesh position={[0, 1.2, 0]} rotation={[0, Math.PI / 4, 0]}>
-        <coneGeometry args={[1.5, 0.8, 4]} />
-        <meshStandardMaterial color="#654321" />
-      </mesh>
-    </group>
+    <primitive 
+      ref={meshRef} 
+      object={gltf.scene}
+      scale={[2.8, 2.8, 2.8]}
+      position={[0, 0.1, 0]}
+    />
   );
 }
 
