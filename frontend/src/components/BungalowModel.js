@@ -39,7 +39,7 @@ function BungalowMesh() {
   if (error) {
     console.log('GLTF loading failed, showing fallback');
     return (
-      <group ref={meshRef} position={[0, 0, 0]} scale={[1, 1, 1]}>
+      <group ref={meshRef} position={[0, -2, 0]} scale={[0.8, 0.8, 0.8]}>
         <mesh position={[0, 0, 0]}>
           <boxGeometry args={[2, 1.5, 2]} />
           <meshStandardMaterial color="#8B4513" />
@@ -67,8 +67,8 @@ function BungalowMesh() {
     <primitive 
       ref={meshRef} 
       object={gltf.scene}
-      scale={[2.8, 2.8, 2.8]}
-      position={[0, 0.1, 0]}
+      scale={[0.8, 0.8, 0.8]}
+      position={[0, -2, 0]}
     />
   );
 }
@@ -118,7 +118,7 @@ export default function BungalowModel() {
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <Canvas
-        camera={{ position: [9, 6, 9], fov: 55 }}
+        camera={{ position: [20, 15, 20], fov: 30 }}
         style={{ background: 'transparent' }}
         onCreated={({ gl }) => {
           gl.setClearColor('#000000', 0);
@@ -142,7 +142,7 @@ export default function BungalowModel() {
         {/* Environment and Controls */}
         <Environment preset="night" />
         
-        {/* Disable controls for auto-rotation, but keep for future use */}
+        {/* Disabled controls for fixed orbital view */}
         {/* <OrbitControls enableZoom={false} enablePan={false} /> */}
       </Canvas>
     </div>
