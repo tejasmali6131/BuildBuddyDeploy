@@ -198,7 +198,7 @@ const PortfolioManager = () => {
 
     try {
       setOperationLoading(`delete-${id}`);
-      const response = await fetch(`/api/portfolio/${id}`, {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/portfolio/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
