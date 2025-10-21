@@ -1,0 +1,85 @@
+.App {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Main content wrapper to account for fixed header */
+.main-content {
+  padding-top: 86px; /* Account for fixed header height (70px min-height + 16px padding + border) */
+}
+
+/* Dashboard main content without header/footer */
+.dashboard-main {
+  min-height: 100vh;
+  padding: 0;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Section spacing */
+section {
+  padding: var(--section-padding);
+}
+
+/* Background variations */
+.hero {
+  background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-white) 100%);
+}
+
+.features {
+  background: var(--bg-white);
+}
+
+.how-it-works {
+  background: var(--bg-light);
+}
+
+.testimonials {
+  background: var(--bg-white);
+}
+
+/* Loading states */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.loading::after {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-light);
+  border-top: 3px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error states */
+.error {
+  color: #ef4444;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  padding: 16px;
+  border-radius: var(--border-radius);
+  margin: 16px 0;
+}
+
+/* Success states */
+.success {
+  color: #059669;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  padding: 16px;
+  border-radius: var(--border-radius);
+  margin: 16px 0;
+}

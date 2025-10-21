@@ -1,0 +1,67 @@
+/* TruncatedText Component Styles */
+.truncated-text {
+  position: relative;
+}
+
+.truncated-text-content {
+  display: block;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  line-height: 1.5;
+}
+
+.truncated-text-toggle {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-left: 8px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.truncated-text-toggle:hover {
+  background: rgba(0, 123, 255, 0.1);
+  color: #0056b3;
+}
+
+.truncated-text-toggle:focus {
+  outline: 2px solid rgba(0, 123, 255, 0.3);
+  outline-offset: 1px;
+}
+
+/* Inline variant */
+.truncated-text.inline {
+  display: inline;
+}
+
+.truncated-text.inline .truncated-text-content {
+  display: inline;
+}
+
+/* Different text sizes */
+.truncated-text.small {
+  font-size: 0.875rem;
+}
+
+.truncated-text.large {
+  font-size: 1.125rem;
+}
+
+/* Animation for expanding/collapsing */
+.truncated-text-content {
+  transition: all 0.3s ease;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .truncated-text-toggle {
+    display: block;
+    margin-left: 0;
+    margin-top: 4px;
+  }
+}

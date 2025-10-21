@@ -1,0 +1,10 @@
+# Render.com deployment configuration
+# Build Command: npm install
+# Start Command: npm start
+
+# Environment: Node.js
+# Region: Choose your preferred region
+
+# Health Check Path: /api/health (we'll create this endpoint)
+
+# Auto-Deploy: Yes (from main branch)

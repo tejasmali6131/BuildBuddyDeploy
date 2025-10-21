@@ -1,0 +1,65 @@
+/* AI Visualization Section for Dashboard Integration */
+.ai-visualization-section {
+  width: 70%;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: var(--bg-primary);
+  border-radius: 12px;
+  border: 1px solid var(--border-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ai-visualization-section .hero-visual {
+  padding: 0;
+  margin: 0;
+}
+
+.ai-visualization-section .hero-card {
+  max-width: 100%;
+  margin: 0 auto;
+  transform: none;
+}
+
+.ai-visualization-section .hero-card:hover {
+  transform: translateY(-5px);
+}
+
+.ai-visualization-section .demo-viewer {
+  width: 100%;
+  max-width: 500px;
+  height: 400px;
+}
+
+/* Responsive adjustments for dashboard context */
+@media (max-width: 768px) {
+  .ai-visualization-section {
+    margin: 2rem auto;
+    padding: 1.5rem;
+  }
+  
+  .ai-visualization-section .demo-viewer {
+    height: 300px;
+  }
+  
+  .ai-visualization-section .ai-demo-card {
+    padding: 1.5rem;
+    min-height: 450px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ai-visualization-section {
+    margin: 1.5rem auto;
+    padding: 1rem;
+  }
+  
+  .ai-visualization-section .demo-viewer {
+    height: 250px;
+  }
+  
+  .ai-visualization-section .generate-custom-btn {
+    font-size: 0.9rem;
+    padding: 0.8rem 1.5rem;
+  }
+}

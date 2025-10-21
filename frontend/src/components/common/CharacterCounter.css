@@ -1,0 +1,55 @@
+/* Character Counter Styles */
+.character-counter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: #666;
+  transition: color 0.2s ease;
+}
+
+.counter-text {
+  font-weight: 500;
+}
+
+.character-counter.warning {
+  color: #f59e0b;
+}
+
+.character-counter.over-limit {
+  color: #ef4444;
+}
+
+.over-limit-text {
+  font-weight: 600;
+  font-size: 0.7rem;
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #fecaca;
+}
+
+/* Animation for over limit */
+.character-counter.over-limit .counter-text {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Different sizes */
+.character-counter.small {
+  font-size: 0.65rem;
+}
+
+.character-counter.large {
+  font-size: 0.8rem;
+}

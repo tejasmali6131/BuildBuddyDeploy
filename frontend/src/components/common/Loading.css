@@ -1,0 +1,285 @@
+/* Loading Component Styles */
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  position: relative;
+}
+
+.loading-container.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  z-index: 9999;
+}
+
+.loading-container.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+}
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.loading-message {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #4a5568;
+  opacity: 0.8;
+}
+
+.fullscreen .loading-message {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Spinner Sizes */
+.loading-spinner.small { transform: scale(0.7); }
+.loading-spinner.medium { transform: scale(1); }
+.loading-spinner.large { transform: scale(1.3); }
+
+/* Default Spinner */
+.loading-spinner-circle {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #e2e8f0;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.fullscreen .loading-spinner-circle {
+  border-color: rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Dots Animation */
+.loading-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.loading-dots .dot {
+  width: 12px;
+  height: 12px;
+  background: #667eea;
+  border-radius: 50%;
+  animation: dotBounce 1.4s ease-in-out infinite both;
+}
+
+.fullscreen .loading-dots .dot {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.loading-dots .dot:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots .dot:nth-child(2) { animation-delay: -0.16s; }
+.loading-dots .dot:nth-child(3) { animation-delay: 0s; }
+
+/* Pulse Animation */
+.loading-pulse {
+  width: 50px;
+  height: 50px;
+  background: #667eea;
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.fullscreen .loading-pulse {
+  background: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Bars Animation */
+.loading-bars {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.loading-bars .bar {
+  width: 6px;
+  height: 40px;
+  background: #667eea;
+  border-radius: 3px;
+  animation: barStretch 1.2s ease-in-out infinite;
+}
+
+.fullscreen .loading-bars .bar {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.loading-bars .bar:nth-child(1) { animation-delay: -1.1s; }
+.loading-bars .bar:nth-child(2) { animation-delay: -1.0s; }
+.loading-bars .bar:nth-child(3) { animation-delay: -0.9s; }
+.loading-bars .bar:nth-child(4) { animation-delay: -0.8s; }
+
+/* BuildBuddy Themed Animation */
+.loading-buildbuddy {
+  position: relative;
+  width: 80px;
+  height: 60px;
+}
+
+.building-blocks {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  justify-content: center;
+  height: 50px;
+}
+
+.building-blocks .block {
+  background: #667eea;
+  border-radius: 2px 2px 0 0;
+  animation: buildingGrow 2s ease-in-out infinite;
+}
+
+.fullscreen .building-blocks .block {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.building-blocks .block-1 {
+  width: 12px;
+  height: 20px;
+  animation-delay: 0s;
+}
+
+.building-blocks .block-2 {
+  width: 16px;
+  height: 35px;
+  animation-delay: 0.3s;
+}
+
+.building-blocks .block-3 {
+  width: 12px;
+  height: 25px;
+  animation-delay: 0.6s;
+}
+
+.construction-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #667eea 50%, transparent 100%);
+  animation: constructionMove 2s linear infinite;
+}
+
+.fullscreen .construction-line {
+  background: linear-gradient(90deg, transparent 0%, white 50%, transparent 100%);
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes dotBounce {
+  0%, 80%, 100% {
+    transform: scale(0.7);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes barStretch {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
+    opacity: 0.6;
+  }
+  20% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes buildingGrow {
+  0%, 100% {
+    transform: scaleY(0.6);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes constructionMove {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .loading-message {
+    font-size: 1rem;
+  }
+  
+  .fullscreen .loading-message {
+    font-size: 1.1rem;
+  }
+  
+  .loading-spinner.large { transform: scale(1.1); }
+  .loading-spinner.medium { transform: scale(0.9); }
+  .loading-spinner.small { transform: scale(0.6); }
+}

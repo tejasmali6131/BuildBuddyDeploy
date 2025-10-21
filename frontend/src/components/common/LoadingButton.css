@@ -1,0 +1,200 @@
+/* Loading Button Styles */
+.loading-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  white-space: nowrap;
+}
+
+.loading-btn.is-loading {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.loading-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Content containers */
+.btn-loading-content,
+.btn-normal-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.btn-loading-content {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.btn-normal-content {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Loading animations */
+.btn-loading-spinner {
+  font-size: 0.9em;
+  animation: spin 1s linear infinite;
+}
+
+.btn-loading-dots {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.btn-loading-dots span {
+  width: 4px;
+  height: 4px;
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: dotPulse 1.4s ease-in-out infinite both;
+}
+
+.btn-loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.btn-loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+.btn-loading-dots span:nth-child(3) { animation-delay: 0s; }
+
+.btn-loading-pulse {
+  width: 12px;
+  height: 12px;
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: btnPulse 1.5s ease-in-out infinite;
+}
+
+.btn-loading-bars {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.btn-loading-bars span {
+  width: 2px;
+  height: 12px;
+  background: currentColor;
+  border-radius: 1px;
+  opacity: 0.6;
+  animation: barScale 1.2s ease-in-out infinite;
+}
+
+.btn-loading-bars span:nth-child(1) { animation-delay: -0.4s; }
+.btn-loading-bars span:nth-child(2) { animation-delay: -0.2s; }
+.btn-loading-bars span:nth-child(3) { animation-delay: 0s; }
+
+/* Text and icon styles */
+.btn-loading-text,
+.btn-text {
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+.btn-icon {
+  font-size: 0.9em;
+}
+
+/* State-specific styles for different button types */
+.loading-btn.btn-primary.is-loading {
+  background: var(--primary-color);
+  opacity: 0.8;
+}
+
+.loading-btn.btn-secondary.is-loading {
+  background: var(--secondary-color);
+  opacity: 0.8;
+}
+
+.loading-btn.btn-success.is-loading {
+  background: var(--success-color);
+  opacity: 0.8;
+}
+
+.loading-btn.btn-danger.is-loading {
+  background: var(--danger-color);
+  opacity: 0.8;
+}
+
+/* Hover effects (disabled when loading) */
+.loading-btn:not(.is-loading):not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .loading-btn {
+    min-width: 100px;
+    padding: 10px 16px;
+  }
+  
+  .btn-loading-content,
+  .btn-normal-content {
+    gap: 6px;
+  }
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes dotPulse {
+  0%, 80%, 100% {
+    transform: scale(0.7);
+    opacity: 0.3;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes btnPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+}
+
+@keyframes barScale {
+  0%, 40%, 100% {
+    transform: scaleY(0.5);
+    opacity: 0.4;
+  }
+  20% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}

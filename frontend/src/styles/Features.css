@@ -1,0 +1,353 @@
+.features {
+  padding: 80px 0;
+  background: var(--bg-primary);
+}
+
+.features-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.feature-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  border: 1px solid var(--border-primary);
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: var(--shadow-secondary);
+  width: 300px;
+  flex-shrink: 0;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-accent);
+  border-color: var(--accent-color);
+}
+
+.feature-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--primary-color); /* Fallback solid color */
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  transition: transform 0.3s ease;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.1);
+  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.5);
+}
+
+.feature-icon i {
+  font-size: 28px;
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  position: relative;
+  font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", FontAwesome;
+  font-weight: 900;
+  display: block;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.fallback-icon {
+  font-size: 28px;
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  position: relative;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  display: block;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.feature-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.feature-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Loading state */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .features {
+    padding: 60px 0;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 100%;
+  }
+  
+  .feature-card {
+    padding: 24px 20px;
+  }
+  
+  .feature-icon {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .feature-icon i {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .feature-card {
+    padding: 20px 16px;
+  }
+  
+  .feature-card h3 {
+    font-size: 1.125rem;
+  }
+}
+
+.feature-card {
+  background: var(--bg-white);
+  border-radius: var(--border-radius-lg);
+  padding: 40px 32px;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+.feature-card:hover::before {
+  transform: scaleX(1);
+}
+
+.feature-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  position: relative;
+}
+
+.feature-icon::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  background: var(--bg-white);
+  border-radius: 50%;
+}
+
+.feature-icon i {
+  font-size: 32px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  z-index: 1;
+}
+
+.feature-card h3 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+.feature-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.features-comparison {
+  background: var(--bg-light);
+  border-radius: var(--border-radius-lg);
+  padding: 60px 40px;
+  margin-top: 80px;
+}
+
+.features-comparison h3 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 48px;
+  color: var(--text-primary);
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.comparison-item {
+  background: var(--bg-white);
+  border-radius: var(--border-radius);
+  padding: 32px;
+  box-shadow: var(--shadow-md);
+}
+
+.traditional {
+  border-left: 4px solid #ef4444;
+}
+
+.buildbuddy {
+  border-left: 4px solid var(--primary-color);
+}
+
+.comparison-item h4 {
+  font-size: 20px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.traditional h4 {
+  color: #ef4444;
+}
+
+.buildbuddy h4 {
+  color: var(--primary-color);
+}
+
+.comparison-item ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.comparison-item li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-secondary);
+}
+
+.comparison-item li:last-child {
+  border-bottom: none;
+}
+
+.traditional li i {
+  color: #ef4444;
+  font-size: 16px;
+}
+
+.buildbuddy li i {
+  color: var(--secondary-color);
+  font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .feature-card {
+    padding: 32px 24px;
+  }
+  
+  .feature-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 20px;
+  }
+  
+  .feature-icon i {
+    font-size: 24px;
+  }
+  
+  .feature-card h3 {
+    font-size: 20px;
+  }
+  
+  .features-comparison {
+    padding: 40px 24px;
+    margin-top: 60px;
+  }
+  
+  .comparison-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .comparison-item {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .feature-card {
+    padding: 24px 16px;
+  }
+  
+  .features-comparison {
+    padding: 32px 16px;
+  }
+  
+  .features-comparison h3 {
+    font-size: 1.5rem;
+  }
+}
