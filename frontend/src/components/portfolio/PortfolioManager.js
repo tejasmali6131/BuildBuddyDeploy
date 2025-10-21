@@ -86,12 +86,18 @@ const PortfolioManager = () => {
   };
 
   const handleViewPDF = (portfolio) => {
-    // Use direct backend URL to bypass React router
-    const pdfUrl = `http://localhost:5000/api/portfolio/uploads/${portfolio.pdf_filename}`;
-    console.log('Opening PDF via direct backend URL:', pdfUrl);
+    // Use the direct Cloudinary URL from the backend response
+    const pdfUrl = portfolio.pdf_path || portfolio.file_url;
+    console.log('Opening PDF via Cloudinary URL:', pdfUrl);
+    
+    if (!pdfUrl) {
+      showError('PDF file not available. Please re-upload the document.');
+      return;
+    }
+    
     setCurrentPDF({
       url: pdfUrl,
-      filename: portfolio.pdf_filename
+      filename: portfolio.pdf_filename || 'document.pdf'
     });
     setShowPDFViewer(true);
   };
