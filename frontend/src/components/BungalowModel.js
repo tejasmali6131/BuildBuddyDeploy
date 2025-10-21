@@ -7,41 +7,28 @@ import * as THREE from 'three';
 // 3D Bungalow Model Component
 function BungalowMesh() {
   const meshRef = useRef();
-  const gltf = useLoader(GLTFLoader, '/models/old_suburban_bungalow.glb');
+  // Temporarily disable GLTF loading to fix deployment issues
+  // const gltf = useLoader(GLTFLoader, '/models/old_suburban_bungalow.glb');
 
-  // Auto-rotate the model
   useFrame((state, delta) => {
     if (meshRef.current) {
       meshRef.current.rotation.y += delta * 0.3; // Smooth rotation
     }
   });
 
-  useEffect(() => {
-    if (gltf && meshRef.current) {
-      // Scale and position the model
-      meshRef.current.scale.set(0.5, 0.5, 0.5);
-      meshRef.current.position.set(0, -0.5, 0);
-      
-      // Add materials enhancement
-      gltf.scene.traverse((child) => {
-        if (child.isMesh) {
-          child.material.metalness = 0.1;
-          child.material.roughness = 0.8;
-          child.castShadow = true;
-          child.receiveShadow = true;
-        }
-      });
-    }
-  }, [gltf]);
-
-  return gltf ? (
-    <primitive 
-      ref={meshRef} 
-      object={gltf.scene}
-      scale={[2.8, 2.8, 2.8]}
-      position={[0, 0.1, 0]}
-    />
-  ) : null;
+  return (
+    // Temporary simple house shape while GLTF loading is disabled
+    <group ref={meshRef} position={[0, 0, 0]} scale={[1, 1, 1]}>
+      <mesh position={[0, 0, 0]}>
+        <boxGeometry args={[2, 1.5, 2]} />
+        <meshStandardMaterial color="#8B4513" />
+      </mesh>
+      <mesh position={[0, 1.2, 0]} rotation={[0, Math.PI / 4, 0]}>
+        <coneGeometry args={[1.5, 0.8, 4]} />
+        <meshStandardMaterial color="#654321" />
+      </mesh>
+    </group>
+  );
 }
 
 // Particle System for AI Generation Effect
