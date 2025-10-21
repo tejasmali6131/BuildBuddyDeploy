@@ -6,6 +6,7 @@ import ToastContainer from '../common/ToastContainer';
 import TruncatedText from '../common/TruncatedText';
 import CharacterCounter from '../common/CharacterCounter';
 import useToast from '../../hooks/useToast';
+import { API_BASE_URL_EXPORT } from '../../data/api';
 import '../../styles/Portfolio.css';
 
 const PortfolioManager = () => {
@@ -45,7 +46,7 @@ const PortfolioManager = () => {
   const fetchPortfolios = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/portfolio', {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/portfolio`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

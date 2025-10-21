@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../common/ToastProvider';
 import { scrollToTop } from '../ScrollToTop';
+import { API_BASE_URL_EXPORT } from '../../data/api';
 import './Projects.css';
 
 const CreateProject = ({ onProjectCreated, onCancel }) => {
@@ -115,7 +116,7 @@ const CreateProject = ({ onProjectCreated, onCancel }) => {
     setLoading(true);
 
     try {
-      const response = await fetch('/api/projects', {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/projects`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

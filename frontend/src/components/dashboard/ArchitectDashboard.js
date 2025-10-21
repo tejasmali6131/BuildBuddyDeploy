@@ -5,6 +5,7 @@ import PortfolioManager from '../portfolio/PortfolioManager';
 import RatingsManager from '../ratings/RatingsManager';
 import AIVisualizationSection from '../common/AIVisualizationSection';
 import { scrollToTop } from '../ScrollToTop';
+import { API_BASE_URL_EXPORT } from '../../data/api';
 import '../../styles/Dashboard.css';
 
 const ArchitectDashboard = () => {
@@ -49,7 +50,7 @@ const ArchitectDashboard = () => {
       setLoadingStats(true);
       console.log('Fetching architect dashboard statistics...');
 
-      const response = await fetch('/api/bids/dashboard-stats', {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/bids/dashboard-stats`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -99,13 +100,13 @@ const ArchitectDashboard = () => {
     setLoadingModal(true);
     setShowDetailModal(true);
     setModalContent({
-      title: 'Your Clients',
       type: 'clients',
+      title: 'My Clients',
       data: []
     });
 
     try {
-      const response = await fetch('/api/bids/my-bids', {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/bids/my-bids`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -182,7 +183,7 @@ const ArchitectDashboard = () => {
     });
 
     try {
-      const response = await fetch('/api/bids/my-bids', {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/bids/my-bids`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -240,7 +241,7 @@ const ArchitectDashboard = () => {
         portfolio: editForm.portfolio
       };
 
-      const response = await fetch('/api/auth/profile', {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/auth/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

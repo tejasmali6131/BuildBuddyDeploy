@@ -6,6 +6,7 @@ import RatingModal from '../ratings/RatingModal';
 import AIVisualizationSection from '../common/AIVisualizationSection';
 import { scrollToTop } from '../ScrollToTop';
 import useToast from '../../hooks/useToast';
+import { API_BASE_URL_EXPORT } from '../../data/api';
 import '../../styles/Dashboard.css';
 
 const CustomerDashboard = () => {
@@ -49,7 +50,7 @@ const CustomerDashboard = () => {
         throw new Error('No authentication token found');
       }
 
-      const response = await fetch('/api/auth/profile', {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/auth/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -106,7 +107,7 @@ const CustomerDashboard = () => {
     
     setProjectsLoading(true);
     try {
-      const response = await fetch('/api/projects', {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/projects`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -187,7 +188,7 @@ const CustomerDashboard = () => {
     setLoadingModal(true);
     try {
       // Get bids for all customer's projects
-      const response = await fetch('/api/projects/bids', {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/projects/bids`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -269,7 +270,7 @@ const CustomerDashboard = () => {
       }
 
       // First, mark project as completed
-      const completionResponse = await fetch('/api/ratings/complete-project', {
+      const completionResponse = await fetch(`${API_BASE_URL_EXPORT}/ratings/complete-project`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -288,7 +289,7 @@ const CustomerDashboard = () => {
 
       // If rating data is provided, submit the rating
       if (ratingData) {
-        const ratingResponse = await fetch('/api/ratings/create', {
+        const ratingResponse = await fetch(`${API_BASE_URL_EXPORT}/ratings/create`, {
           method: 'POST', 
           headers: {
             'Content-Type': 'application/json',
