@@ -59,7 +59,7 @@ git push origin main
 
 ### 2.3 Test Cloudinary Setup
 
-1. In your Cloudinary dashboard, go to "Media Library"
+1. In your Cloudinary dashboard, look for **"Assets"** → **"Manage"** in the left sidebar
 2. You can test upload functionality later after deployment
 3. Files will be stored in `buildbuddy/portfolios/` folder automatically
 
@@ -163,8 +163,12 @@ Redeploy the backend service.
 
 ### 6.2 Verify Cloudinary Storage
 
-1. Go to Cloudinary Dashboard > Media Library
-2. Check if uploaded files appear in the `buildbuddy/portfolios/` folder
+1. Go to Cloudinary Dashboard
+2. Look for one of these in the left sidebar:
+   - **"Assets"** → **"Manage"** (most common)
+   - **"Media Explorer"** 
+   - **"Digital Asset Management (DAM)"**
+3. Check if uploaded files appear in the `buildbuddy/portfolios/` folder
 
 ## Step 7: Domain Configuration (Optional)
 
