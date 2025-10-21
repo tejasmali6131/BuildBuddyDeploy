@@ -4,6 +4,7 @@ import ToastContainer from '../common/ToastContainer';
 import { ComponentLoading, SmallLoading } from '../common/LoadingVariants';
 import LoadingButton from '../common/LoadingButton';
 import useToast from '../../hooks/useToast';
+import { API_BASE_URL_EXPORT } from '../../data/api';
 import '../../styles/Ratings.css';
 
 const RatingsManager = () => {
@@ -27,7 +28,7 @@ const RatingsManager = () => {
       setLoadingRatings(true);
       if (initialLoad) setLoading(true);
       
-      const response = await fetch('/api/ratings/my-ratings', {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/ratings/my-ratings`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -57,7 +58,7 @@ const RatingsManager = () => {
       setLoadingProjects(true);
       if (initialLoad) setLoading(true);
       
-      const response = await fetch('/api/ratings/completed-projects', {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/ratings/completed-projects`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -85,7 +86,7 @@ const RatingsManager = () => {
     try {
       setMarkingComplete(prev => ({ ...prev, [projectId]: true }));
       
-      const response = await fetch('/api/ratings/complete-project', {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/ratings/complete-project`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

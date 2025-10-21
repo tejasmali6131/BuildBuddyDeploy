@@ -5,6 +5,7 @@ import SubmitBid from './SubmitBid';
 import RatingModal from '../ratings/RatingModal';
 import FirmProfileModal from '../firms/FirmProfileModal';
 import { scrollToTop } from '../ScrollToTop';
+import { API_BASE_URL_EXPORT } from '../../data/api';
 import './Projects.css';
 import '../../styles/Ratings.css';
 
@@ -223,7 +224,7 @@ const ProjectDetails = ({ project, onBack, onProjectUpdated, initialShowBidForm 
       }
 
       // First, mark project as completed
-      const completionResponse = await fetch('/api/ratings/complete-project', {
+      const completionResponse = await fetch(`${API_BASE_URL_EXPORT}/ratings/complete-project`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -242,7 +243,7 @@ const ProjectDetails = ({ project, onBack, onProjectUpdated, initialShowBidForm 
 
       // If rating data is provided, submit the rating
       if (ratingData) {
-        const ratingResponse = await fetch('/api/ratings/create', {
+        const ratingResponse = await fetch(`${API_BASE_URL_EXPORT}/ratings/create`, {
           method: 'POST', 
           headers: {
             'Content-Type': 'application/json',

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../common/ToastProvider';
 import { scrollToTop } from '../ScrollToTop';
+import { API_BASE_URL_EXPORT } from '../../data/api';
 import './Projects.css';
 
 const SubmitBid = ({ project, onBidSubmitted, onCancel }) => {
@@ -89,7 +90,7 @@ const SubmitBid = ({ project, onBidSubmitted, onCancel }) => {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
-      const response = await fetch('/api/bids', {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/bids`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
