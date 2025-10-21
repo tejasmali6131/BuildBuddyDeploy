@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { scrollToTop } from '../ScrollToTop';
+import { API_BASE_URL_EXPORT } from '../../data/api';
 import '../../styles/Auth.css';
 
 const SignIn = () => {
@@ -63,7 +64,7 @@ const SignIn = () => {
     setIsLoading(true);
     
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

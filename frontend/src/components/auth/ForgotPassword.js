@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { API_BASE_URL_EXPORT } from '../../data/api';
 import '../../styles/Auth.css';
 
 const ForgotPassword = () => {
@@ -73,7 +74,7 @@ const ForgotPassword = () => {
     setMessage('');
 
     try {
-      const response = await fetch('/api/auth/forgot-password', {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/auth/forgot-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -111,7 +112,7 @@ const ForgotPassword = () => {
     setMessage('');
 
     try {
-      const response = await fetch('/api/auth/reset-password', {
+      const response = await fetch(`${API_BASE_URL_EXPORT}/auth/reset-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

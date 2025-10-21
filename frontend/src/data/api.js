@@ -1,6 +1,9 @@
 // API service for fetching dynamic content
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
+// Export the base URL for use in other components
+export const API_BASE_URL_EXPORT = API_BASE_URL;
+
 export const api = {
   // Fetch platform statistics
   getStats: async () => {
