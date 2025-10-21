@@ -144,8 +144,8 @@ const PortfolioManager = () => {
       setUploadProgress(70);
 
       const url = editingPortfolio 
-        ? `/api/portfolio/${editingPortfolio.id}`
-        : '/api/portfolio';
+        ? `${API_BASE_URL_EXPORT}/portfolio/${editingPortfolio.id}`
+        : `${API_BASE_URL_EXPORT}/portfolio`;
       
       const method = editingPortfolio ? 'PUT' : 'POST';
 
