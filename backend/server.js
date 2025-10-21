@@ -12,7 +12,7 @@ const authRoutes = require('./routes/auth');
 const projectRoutes = require('./routes/projects');
 const bidRoutes = require('./routes/bids');
 const notificationRoutes = require('./routes/notifications');
-const portfolioRoutes = require('./routes/portfolio-firebase'); // Updated to use Firebase version
+const portfolioRoutes = require('./routes/portfolio-cloudinary'); // Updated to use Cloudinary version
 
 const app = express();
 const PORT = process.env.PORT || 5000;

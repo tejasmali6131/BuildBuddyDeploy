@@ -2,7 +2,7 @@
 
 This guide will help you deploy your BuildBuddy application using:
 - **Vercel** (Frontend hosting)
-- **Firebase** (File storage)  
+- **Cloudinary** (File storage - Completely Free!)  
 - **Render** (Backend hosting)
 
 All services offer free tiers suitable for your project.
@@ -10,72 +10,60 @@ All services offer free tiers suitable for your project.
 ## Prerequisites
 
 1. GitHub account (for code hosting)
-2. Firebase account (Google account)
+2. Cloudinary account (free)
 3. Vercel account
 4. Render account
 
 ## Step 1: Prepare Your Repository
 
-1. **Initialize Git repository** (if not already done):
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   ```
+✅ **You've already done this!** Your code is on GitHub.
 
-2. **Create GitHub repository** and push your code:
-   ```bash
-   git remote add origin https://github.com/yourusername/buildbuddy.git
-   git branch -M main
-   git push -u origin main
-   ```
+## Step 1.5: Install New Dependencies
 
-## Step 2: Setup Firebase
+Before deploying, install the Cloudinary dependencies:
 
-### 2.1 Create Firebase Project
+```bash
+# In your backend folder
+cd backend
+npm install cloudinary multer-storage-cloudinary
 
-1. Go to [Firebase Console](https://console.firebase.google.com/)
-2. Click "Create a project"
-3. Enter project name: `buildbuddy-app` (or your preferred name)
-4. Disable Google Analytics (optional for this project)
-5. Click "Create project"
-
-### 2.2 Enable Firebase Storage
-
-1. In your Firebase project, go to "Storage" in the left sidebar
-2. Click "Get started"
-3. Choose "Start in production mode"
-4. Select your preferred location
-5. Click "Done"
-
-### 2.3 Configure Firebase Storage Rules
-
-In the Storage section, go to "Rules" tab and update the rules:
-
-```javascript
-rules_version = '2';
-service firebase.storage {
-  match /b/{bucket}/o {
-    // Allow read access to all files
-    match /{allPaths=**} {
-      allow read: if true;
-    }
-    
-    // Allow write access only to authenticated users for portfolios
-    match /portfolios/{allPaths=**} {
-      allow write: if request.auth != null;
-    }
-  }
-}
+# Commit the changes
+git add .
+git commit -m "Add Cloudinary dependencies"
+git push origin main
 ```
 
-### 2.4 Get Firebase Configuration
+## Step 2: Setup Cloudinary (100% Free File Storage)
 
-1. Go to Project Settings (gear icon)
-2. Scroll down to "Your apps" section
-3. Click "Add app" and select "Web" (</> icon)
-4. Register your app with nickname: "BuildBuddy Frontend"
-5. Copy the Firebase configuration object (you'll need these values)
+### 2.1 Create Cloudinary Account
+
+1. Go to [Cloudinary.com](https://cloudinary.com/)
+2. Click "Sign up for free"
+3. Create your account (no billing required!)
+4. Choose a unique cloud name (this will be part of your URLs)
+
+### 2.2 Get Cloudinary Credentials
+
+1. After signup, you'll be taken to the Dashboard
+2. Copy these three values from your dashboard:
+   - **Cloud Name** 
+   - **API Key**
+   - **API Secret** (click "Reveal" to see it)
+
+### 2.3 Cloudinary Free Tier Benefits
+
+- **25GB storage** (vs Firebase's 1GB)
+- **25GB bandwidth** per month
+- **No billing account** required
+- Support for images, videos, and PDFs
+
+### 2.3 Test Cloudinary Setup
+
+1. In your Cloudinary dashboard, go to "Media Library"
+2. You can test upload functionality later after deployment
+3. Files will be stored in `buildbuddy/portfolios/` folder automatically
+
+**That's it!** No complex rules or billing setup needed.
 
 ## Step 3: Deploy Backend to Render
 
@@ -106,12 +94,9 @@ In the Render dashboard, go to "Environment" tab and add these variables:
 NODE_ENV=production
 JWT_SECRET=your_super_secure_jwt_secret_key_here_make_it_long_and_random
 JWT_EXPIRES_IN=7d
-FIREBASE_API_KEY=your_firebase_api_key_from_step_2.4
-FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
-FIREBASE_PROJECT_ID=your_firebase_project_id
-FIREBASE_STORAGE_BUCKET=your_project_id.appspot.com
-FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
-FIREBASE_APP_ID=your_firebase_app_id
+CLOUDINARY_CLOUD_NAME=your_cloud_name_from_step_2.2
+CLOUDINARY_API_KEY=your_api_key_from_step_2.2
+CLOUDINARY_API_SECRET=your_api_secret_from_step_2.2
 CORS_ORIGIN=https://your-app-name.vercel.app
 ```
 
@@ -141,17 +126,13 @@ Visit `https://your-app-name.onrender.com/api/health` to verify deployment.
 
 ### 4.3 Configure Environment Variables
 
-In the deployment configuration, add these environment variables:
+In the deployment configuration, add this environment variable:
 
 ```
 REACT_APP_API_URL=https://your-backend-app.onrender.com/api
-REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
-REACT_APP_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
-REACT_APP_FIREBASE_PROJECT_ID=your_firebase_project_id
-REACT_APP_FIREBASE_STORAGE_BUCKET=your_project_id.appspot.com
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
-REACT_APP_FIREBASE_APP_ID=your_firebase_app_id
 ```
+
+**Note:** The frontend doesn't need Cloudinary credentials since file uploads are handled by the backend.
 
 ### 4.4 Deploy Frontend
 
@@ -178,12 +159,12 @@ Redeploy the backend service.
 1. Visit your Vercel frontend URL
 2. Test user registration/login
 3. Test file uploads (portfolio management)
-4. Verify files are stored in Firebase Storage
+4. Verify files are stored in Cloudinary
 
-### 6.2 Verify Firebase Storage
+### 6.2 Verify Cloudinary Storage
 
-1. Go to Firebase Console > Storage
-2. Check if uploaded files appear in the `portfolios/` folder
+1. Go to Cloudinary Dashboard > Media Library
+2. Check if uploaded files appear in the `buildbuddy/portfolios/` folder
 
 ## Step 7: Domain Configuration (Optional)
 
@@ -210,10 +191,10 @@ Redeploy the backend service.
 - 10GB deployment storage
 - Commercial usage allowed
 
-**Firebase Free Tier (Spark Plan):**
-- 1GB storage
-- 10GB/month downloads
-- 20,000/day uploads
+**Cloudinary Free Tier:**
+- 25GB storage
+- 25GB bandwidth/month
+- No billing account required
 
 **Render Free Tier:**
 - 750 hours/month
@@ -225,7 +206,7 @@ Redeploy the backend service.
 
 1. **Vercel**: Monitor through Vercel dashboard
 2. **Render**: Monitor through Render dashboard  
-3. **Firebase**: Monitor through Firebase console
+3. **Cloudinary**: Monitor through Cloudinary dashboard
 
 ## Troubleshooting
 
@@ -239,9 +220,9 @@ Redeploy the backend service.
    - Verify CORS_ORIGIN environment variable matches your Vercel URL exactly
    - Ensure both http and https protocols are handled
 
-3. **Firebase upload errors**
-   - Check Firebase Storage rules
-   - Verify environment variables are set correctly
+3. **Cloudinary upload errors**
+   - Check Cloudinary credentials in Render environment variables
+   - Verify Cloud Name, API Key, and API Secret are correct
    - Check browser console for detailed error messages
 
 4. **Build failures**
@@ -253,7 +234,7 @@ Redeploy the backend service.
 
 - **Vercel**: [Documentation](https://vercel.com/docs)
 - **Render**: [Documentation](https://render.com/docs)
-- **Firebase**: [Documentation](https://firebase.google.com/docs/storage)
+- **Cloudinary**: [Documentation](https://cloudinary.com/documentation)
 
 ## Cost Optimization
 
@@ -261,8 +242,8 @@ All services offer generous free tiers. Monitor usage through each platform's da
 
 ## Security Checklist
 
-- [ ] Firebase Storage rules configured properly
-- [ ] JWT_SECRET is strong and unique
+- [ ] Cloudinary credentials are kept secure in environment variables
+- [ ] JWT_SECRET is strong and unique (at least 32 characters)
 - [ ] Environment variables are set correctly
 - [ ] CORS is configured to only allow your domain
 - [ ] No sensitive data in client-side code
