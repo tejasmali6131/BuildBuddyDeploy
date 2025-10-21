@@ -7,6 +7,22 @@ const cloudinary = require('cloudinary').v2;
 
 const router = express.Router();
 
+// Helper function to ensure URLs are properly formatted
+const ensureFullUrl = (filePath) => {
+  if (!filePath) return null;
+  
+  // If it's already a full URL (starts with http), return as is
+  if (filePath.startsWith('http')) {
+    return filePath;
+  }
+  
+  // If it's a relative path, it means it's an old entry that needs to be handled
+  // For now, we'll return null to indicate the file is not accessible
+  // In a real scenario, you might want to migrate these to Cloudinary
+  console.warn('Found relative path in database:', filePath);
+  return null;
+};
+
 // Get all portfolio items for the authenticated architect
 router.get('/', authenticateToken, async (req, res) => {
   try {
@@ -53,13 +69,13 @@ router.get('/architect/:architectId', authenticateToken, async (req, res) => {
         title: item.title,
         description: item.description,
         type: item.pdf_filename ? 'pdf' : 'link',
-        file_url: item.pdf_path,
+        file_url: ensureFullUrl(item.pdf_path),
         url: item.portfolio_url,
         created_at: item.created_at,
         project_type: item.project_type,
         completion_date: item.completion_date,
         client_name: item.client_name,
-        image_urls: imageUrls
+        image_urls: imageUrls.map(url => ensureFullUrl(url)).filter(url => url !== null)
       };
     });
     
