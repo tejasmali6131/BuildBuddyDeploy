@@ -2,8 +2,8 @@ const express = require('express');
 const path = require('path');
 const Portfolio = require('../models/Portfolio');
 const authenticateToken = require('../middleware/auth');
-const upload = require('../middleware/firebaseUploadMiddleware');
-const { uploadFileToFirebase, deleteFileFromFirebase } = require('../config/firebase');
+const upload = require('../middleware/uploadMiddleware');
+const cloudinary = require('cloudinary').v2;
 
 const router = express.Router();
 
@@ -128,12 +128,16 @@ router.post('/', authenticateToken, upload.fields([
     if (req.files && req.files.pdf && req.files.pdf[0]) {
       const pdfFile = req.files.pdf[0];
       pdf_filename = pdfFile.filename;
-      pdf_path = `/uploads/portfolios/${pdfFile.filename}`;
+      // Use the full Cloudinary URL instead of relative path
+      pdf_path = pdfFile.path;
+      console.log('PDF uploaded to Cloudinary:', pdf_path);
     }
 
     // Handle image uploads
     if (req.files && req.files.images) {
-      image_urls = req.files.images.map(file => `/uploads/portfolios/${file.filename}`);
+      // Use full Cloudinary URLs for images too
+      image_urls = req.files.images.map(file => file.path);
+      console.log('Images uploaded to Cloudinary:', image_urls);
     }
 
     const portfolioData = {
@@ -197,34 +201,45 @@ router.put('/:id', authenticateToken, upload.fields([
 
     // Handle new PDF upload
     if (req.files && req.files.pdf && req.files.pdf[0]) {
-      // Delete old PDF if exists
-      if (portfolio.pdf_path) {
-        const oldPdfPath = path.join(__dirname, '../uploads/portfolios', portfolio.pdf_filename);
-        if (fs.existsSync(oldPdfPath)) {
-          fs.unlinkSync(oldPdfPath);
+      // Delete old PDF from Cloudinary if exists
+      if (portfolio.pdf_path && portfolio.pdf_filename) {
+        try {
+          // Extract public_id from Cloudinary URL for deletion
+          const publicId = `buildbuddy/portfolios/${portfolio.pdf_filename}`;
+          await cloudinary.uploader.destroy(publicId, { resource_type: 'raw' });
+          console.log('Old PDF deleted from Cloudinary:', publicId);
+        } catch (error) {
+          console.error('Failed to delete old PDF from Cloudinary:', error);
         }
       }
 
       const pdfFile = req.files.pdf[0];
       pdf_filename = pdfFile.filename;
-      pdf_path = `/uploads/portfolios/${pdfFile.filename}`;
+      // Use full Cloudinary URL
+      pdf_path = pdfFile.path;
+      console.log('New PDF uploaded to Cloudinary:', pdf_path);
     }
 
     // Handle new image uploads
     if (req.files && req.files.images) {
-      // Delete old images if replace_images is true
+      // Delete old images from Cloudinary if replace_images is true
       if (req.body.replace_images === 'true' && portfolio.image_urls) {
-        portfolio.image_urls.forEach(imageUrl => {
-          const imageName = path.basename(imageUrl);
-          const imagePath = path.join(__dirname, '../uploads/portfolios', imageName);
-          if (fs.existsSync(imagePath)) {
-            fs.unlinkSync(imagePath);
+        for (const imageUrl of portfolio.image_urls) {
+          try {
+            // Extract public_id from Cloudinary URL for deletion
+            const imageName = path.basename(imageUrl);
+            const publicId = `buildbuddy/portfolios/${imageName}`;
+            await cloudinary.uploader.destroy(publicId);
+            console.log('Old image deleted from Cloudinary:', publicId);
+          } catch (error) {
+            console.error('Failed to delete old image from Cloudinary:', error);
           }
-        });
-        image_urls = req.files.images.map(file => `/uploads/portfolios/${file.filename}`);
+        }
+        // Use full Cloudinary URLs for new images
+        image_urls = req.files.images.map(file => file.path);
       } else {
-        // Append new images
-        const newImageUrls = req.files.images.map(file => `/uploads/portfolios/${file.filename}`);
+        // Append new images with full Cloudinary URLs
+        const newImageUrls = req.files.images.map(file => file.path);
         image_urls = [...image_urls, ...newImageUrls];
       }
     }

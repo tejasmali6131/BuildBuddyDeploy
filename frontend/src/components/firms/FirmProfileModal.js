@@ -89,6 +89,9 @@ const FirmProfileModal = ({ isOpen, onClose, architectId, architectName, company
         data: portfolioData
       });
       
+      // Handle both response formats: { portfolio: [...] } or { data: [...] }
+      const portfolioItems = portfolioData.portfolio || portfolioData.data || [];
+      
       if (!portfolioResponse.ok) {
         console.error('Portfolio API failed:', await portfolioResponse.text());
       }
@@ -98,7 +101,7 @@ const FirmProfileModal = ({ isOpen, onClose, architectId, architectName, company
         ratings: ratingsData.ratings || [],
         ratingSummary: ratingsData.summary || null,
         completedProjects: projectsData.projects || [],
-        portfolio: portfolioData.portfolio || []
+        portfolio: portfolioItems
       });
     } catch (error) {
       console.error('Error fetching profile data:', error);
@@ -420,11 +423,9 @@ const FirmProfileModal = ({ isOpen, onClose, architectId, architectName, company
                 {item.file_url && (
                   <button 
                     onClick={() => {
-                      // Extract just the filename from the full path
-                      const filename = item.file_url.split('/').pop();
-                      const pdfUrl = `http://localhost:5000/api/portfolio/uploads/${filename}`;
-                      console.log('Opening PDF with URL:', pdfUrl);
-                      window.open(pdfUrl, '_blank');
+                      // Use the direct Cloudinary URL
+                      console.log('Opening PDF with URL:', item.file_url);
+                      window.open(item.file_url, '_blank');
                     }}
                     className="portfolio-link pdf-link"
                   >
